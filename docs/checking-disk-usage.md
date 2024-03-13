@@ -21,5 +21,3 @@ mrquota
 
 ## Commands
 * `du -hd1` -> to check the size of each file in a given folder
-
-check
