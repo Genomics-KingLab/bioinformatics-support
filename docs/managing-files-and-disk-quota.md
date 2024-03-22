@@ -38,7 +38,7 @@ To save up space on stornext you can (and should) remove the disk copy of each f
  Stored Name: /stornext/General/data/user_managed/grpu_jchoi_0/projects/davide/cross-species-bulk-atac/snakefile.smk
 -------------------------------------------------------------------------------
       Last Modification: 15-mar-2024 16:12:44
-      Owner:             unknown            **Location:        ARCHIVE**
+      Owner:             unknown            Location:        ARCHIVE
       Group:             unknown            Existing Copies: 2
       Access:            644                Target Copies:   2
                                             Expired Copies:  0
@@ -74,7 +74,6 @@ mrquota
 ------------------------------
 ```
 
-## Useful commands to manage the disk quota 
+## Useful commands to manage disk quota 
 Below you can find a list of commands that might be useful for checking disk space and managing files on Milton
 * `du -hd1` to check the size of each file in a given folder
-
