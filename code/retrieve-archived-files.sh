@@ -1,5 +1,6 @@
 #!/bin/bash  
-
+# Author: Davide Vespasiani
+# Email: vespasiani.d@wehi.edu.au
 
 ## this script will retrieve the disk copy of all archived files within an INPUT directory and its subdirectories
 ## copy the input directory into your $TMPDIR (ie, vast/scratch/users/$USER) 
