@@ -7,7 +7,7 @@
 helpFunction()
 {
    echo ""
-   echo "Usage: $0 -i inputdir"
+   echo "Usage: "$0" -i inputdir"
    echo -e "\t-i path to directory relative to vast/scratch/$USER containing files that need to be updated"
    exit 1 # Exit script after printing help
 }
@@ -50,7 +50,7 @@ if [ ! -d "$INPUTDIR" ]; then
 elif [[ "$CURRENTDIR" == "$TMPDIR" ]]; then
     echo
 else 
-    cd $INPUTDIR
+    cd "$INPUTDIR"
 fi
 
 echo
