@@ -14,4 +14,4 @@ So you sent some samples to be sequenced and got the results? Cool, then check t
 
 
 ## Workflow 
-![Workflow file system management](img/workflow-file-system.png)
+![Workflow file system management](../img/workflow-file-system.png)
