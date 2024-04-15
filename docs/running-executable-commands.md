@@ -29,10 +29,9 @@ Because for any task that needs to be done more than once is best to have a scri
 5. From here create a bin directory by executing  `mkdir $HOME/bin`
 6. Open a text editor (eg, [nano](https://www.nano-editor.org/)) by running `nano $HOME/bin/<the-same-filename-of-the-script-you-chose>`  
 7. Paste in there all the lines you just copied (eg `CTRL +V`)
-8. Save the results by typing `CTRL +O` and then exit the text editor by typing `CTRL +X`
+8. Save the results by typing `CTRL +O` and press `ENTER` then to exit the text editor type `CTRL +X`
 9. Make the script executable by typing `chmod +x $HOME/bin/<the-same-filename-of-the-script-you-chose>`. You'll need to run this command for each different script in the bin directory. For simplicity you can instead run `chmod +x $HOME/bin/*` which will make executable everything withing the `bin` directory
 10. Make the script executable from anywhere on Milton by exporting the path to the `$HOME/bin/` directory into your `bash_profile` by doing the following:
-    * Open up your bash_profile configuration file by `nano $HOME/.bash_profile`
+    * Open up your `.bash_profile` configuration file by `nano $HOME/.bash_profile`
     * Export the path to the bin directory by writing this line in there `export PATH=$PATH:$HOME/bin/` &rarr this command will **permanently** add the new value of `PATH` to the shell environment so that each time you will login into the HPC and your bash profile is activated, your system will be able to locate that path
-    * Saving and exiting nano text editor by typing `CTRL +O` and then `CTRL +X`
-
+    * Saving and exiting nano text editor by typing `CTRL +O`, `ENTER` and then `CTRL +X`
