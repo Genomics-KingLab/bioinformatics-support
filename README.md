@@ -20,5 +20,11 @@ This repository should be updated regularly and/or each time we come across with
 --------------------------------------------------
 
 ## Content
-This repository contains a list of markdown files that are all located within the `docs` folder.  Since the infinite number of commands, functions etc.. that exist actually poses a treat to the usefulness of this repository (they risk of creating a mess and/or endless documents that no one will ever read), for each task (or topic) there is a file containing all those useful commands we should keep in mind when performing that given task. 
+This repository contains a list of markdown files that are all located within the `docs` folder.  Since the infinite number of commands, functions etc.. that exist actually poses a treat to the usefulness of this repository (they risk of creating a mess and/or endless documents that no one will ever read), for each task (or topic) there is a file containing all those useful commands we should keep in mind when performing that given task. <br/>
+
+The `lab-protocols/` folder contains a list of documents aimed at highlighting the best practices we decided to implement within the Kings lab for each different task such as how we should name and store files, a checklist to do before starting a project etc.. These guidelines have the scope of ensuring consistency and organising our work. They will also enourmously benefit all of us in making our science as open and as reproducible as possible.  <br/>
+
+The `bin/` folder contains a list of executable scripts that anyone could download and save into their `$HOME/bin` directory and use them for "housekeeping" tasks such as resetting the files timestamp on `/vast/scratch/$USER`. or to retrieve archived files on `stornext`. 
+
+
 

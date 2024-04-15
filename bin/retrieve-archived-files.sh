@@ -1,10 +1,8 @@
 #!/bin/bash  
-# Author: Davide Vespasiani
-# Email: vespasiani.d@wehi.edu.au
-
-## this script will retrieve the disk copy of all archived files within an INPUT directory and its subdirectories
-## copy the input directory into your $TMPDIR (ie, vast/scratch/users/$USER) 
-## re-archive all files within directory and subdirectories in stornext
+## AUTHOR: Davide Vespasiani
+## EMAIL: vespasiani.d@wehi.edu.au
+## DESCRIPTION: use this script to recursively retrieve the disk copy of all archived files within an INPUT directory and its subdirectories
+## copy the INPUT dir into your $TMPDIR (ie, vast/scratch/users/$USER) and then re-archive all files the INPUT directory 
 
 module load stornext/1.1
 
