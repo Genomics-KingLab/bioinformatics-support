@@ -33,7 +33,10 @@ For these reasons, I've created this document highlighting how to create an exec
 7. Paste in there all the lines you just copied (eg `CTRL +V`)
 8. Save the results by typing `CTRL +O` and press `ENTER` then to exit the text editor type `CTRL +X`
 9. Make the script executable by typing `chmod +x $HOME/bin/resetTimestamp.sh`. You'll need to run this command for each different script in the bin directory. For simplicity you can instead run `chmod +x $HOME/bin/*` which will make executable everything withing the `bin` directory. Remember this step otherwise you might get an error like this:
-    ```-bash: /home/users/allstaff/vespasiani.d/bin/resetTimestamp.sh: Permission denied```
+    
+    ```
+    -bash: /home/users/allstaff/vespasiani.d/bin/resetTimestamp.sh: Permission denied
+    ```
 10. Now that you have permessions to execute the script you need to make it executable from anywhere on the HPC. This means being able to call the script by simply typing `resetTimestamp.sh` instead of always having to specify its full location as `$HOME/bin/resetTimestamp.sh`. To this end, you need to export the path to your `$HOME/bin/` directory into your `bash_profile` which you can achieve by:
     * Opening up your `.bash_profile` configuration file by `nano $HOME/.bash_profile`
     * Exporting the path to the bin directory by writing this line in there `export PATH=$PATH:$HOME/bin/` &rarr this command will **permanently** add the new value of `PATH` to the shell environment so that each time you will login into the HPC and your bash profile is activated, your system will be able to locate that path
