@@ -5,7 +5,6 @@
   - [Managing data on Stornext](#managing-data-on-stornext)
     - [Archiving and retrieving files](#archiving-and-retrieving-files)
   - [VAST file system](#vast-file-system)
-  - [Best practices](#best-practices)
   - [Resources](#resources)
 --------------------------------------------------
 
@@ -68,10 +67,19 @@ Below you can find a list of commands that might be useful for checking disk spa
 
 Stornext is a file system that allows data to be stored and archived at the same time. Data are backed up to tape routinely which allows you to retrieve them in case of truncation. Space on stornext should be 1Tb by default, extendable to up to 5Tb but this requires justificatons from lab heads to WEHI IT support.
 
+Regardless of the space available on stornext, you should compress each file (and eventually tar project dirs). Compressing can be done anywhere, not only on stornext, using the `pigz` module (a faster/parallel version of `gzip`) as:
+```
+module load pigz/ 
+
+pigz --fast <file?> ## for faster compression 
+pigz --best <file? ## slower but achieves better compression
+
+```
 
 ### Archiving and retrieving files
 
 Because data on stornext are backed up onto a tape-based filesystem, any given file on stornext has 2 copies: 1)a disk and 2) an archived copy. To inspect this, upon logging into Milton and navigating to the lab stornext project directory, you can run the following command:
+
 ```
 module load stornext/  ## load the stornext module
 snfileinfo <file> 
@@ -143,30 +151,6 @@ An adequate and smart usage of all the 3 storage areas:
 Should be enough to manage most projects within the lab, check the [best practices section](#best-practices) below to read how to store and work with your data.
 
 --------------------------------------------------
-
-## Best practices
-
-The table below gives you an overview of the best practices on where and how to store files on the different storages on Milton.
-
-| **Data**        	| **Type**     	| **Source**                                       	| **File example** 	| **Store**                     	| **Compress** 	| **Tar**    	|
-|-----------------	|--------------	|--------------------------------------------------	|------------------	|-------------------------------	|--------------	|------------	|
-| Public          	| Raw          	| Public repository accessible through script      	| Fastq            	| `vast/scratch`                	| No need      	| No need    	|
-| Public          	| Raw          	| Public repository accessible through application 	| Fastq            	| `vast/project`                	| Yes          	| Preferably 	|
-| Newly generated 	| Raw          	| Sequencing facilities                            	| Fastq            	| `storenext`                   	| Yes          	| Preferably 	|
-| Intermediate    	| Preprocessed 	| Generate with custom scripts                     	| Bam              	| `vast/scratch`                	| No need      	| No need    	|
-| Final           	| Preprocessed 	| Generate with custom scripts                     	| Bed, bigWig      	| `vast/project`<br>`storenext` 	| Yes          	| Preferably 	|
-
-
-On stornext:
-* Compress large files using the `pigz` module (a faster/parallel version of `gzip`) as:
-```
-module load pigz/ 
-
-pigz --fast <file?> ## for fast compression 
-pigz --best <file? ## slower but achieves better compression
-
-```
-* store large directories as tar files (and compress them)
 
 ## Resources
 Below you can find a list of resources you can consult to learn more about filesytem management at WEHI. 
