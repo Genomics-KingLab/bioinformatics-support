@@ -6,10 +6,12 @@
 
 helpFunction()
 {
-   echo ""
-   echo "Usage: "$0" -i inputdir"
-   echo -e "\t-i path to directory relative to vast/scratch/$USER containing files that need to be updated"
-   exit 1 # Exit script after printing help
+    echo
+    echo "Here's how you should run this script:  "$(basename $0)"  -i inputdir -h "
+    echo " -i = the path to the directory relative to /vast/scratch/$USER containing all the files you want to update"
+    echo " -h = to print this help function"
+    echo
+    exit 1 # Exit script after printing help
 }
 
 if (( $# == 0)); then
@@ -23,10 +25,11 @@ if (( $# == 0)); then
     exit 1
 fi
 
-while getopts "i:" flag; do
+while getopts ":hi:" flag; do
     case "${flag}" in
+        h) helpFunction ;;
         i) inputdir=${OPTARG};;
-        ?) helpFunction ;; # Print helpFunction 
+       \?) echo "Invalid option: $OPTARG" >&2; exit 1 ;;
     esac
 done
 

@@ -35,7 +35,7 @@ On a WEHI Mac run the following:
 ssh vc7-shared ## and press enter after typing your password
 
 ```
-On a WEHI Windows machine, if you have Windows 10 or 11 you may first need to enable OpenSSH ([see instructions](https://wehieduau.sharepoint.com/sites/rc2/SitePages/using-milton.aspx#:~:text=instructions%20on%20Microsoft%20Documentation)). Then open a Command Prompt (from the search bar) and run `ssh vc7-shared`.
+On a WEHI Windows machine, if you have Windows 10 or 11 you may first need to enable OpenSSH ([see instructions](https://learn.microsoft.com/en-us/windows-server/administration/openssh/openssh_install_firstuse?tabs=gui#install-openssh-for-windows)). Then open a Command Prompt (from the search bar) and run `ssh vc7-shared`.
 
 Upon successfully logged in you will see something like this, which means you are now connected to the HPC login node. Remember that this node is not supposed to be used for running jobs but only to navigate through the cluster and to submit jobs to the computing nodes.
 

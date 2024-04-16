@@ -1,66 +1,71 @@
-
 #!/bin/sh
 ## AUTHOR: Davide Vespasiani
 ## EMAIL: vespasiani.d@wehi.edu.au
 ## DESCRIPTION: use this script to set up all directories related to a new project
 
+# Define the help function
 helpFunction()
 {
-   echo ""
-   echo "Usage: "$0" -p projectName -sd stornextDir"
-   echo -e "\t-p the name of your new project"
-   echo -e "\t-sd path to the stornext dir where you want to create your project"
-   exit 1 # Exit script after printing help
+    echo
+    echo "Here's how you should run this script:  "$(basename $0)" -n projectName -s stornextDir -h "
+    echo " -n = the name of your new project"
+    echo " -s = the path on stornext relative to /stornext/General/data/academic/lab_king/BIOINFORMATICS/$USER where you want to creat e your project"
+    echo " -h = to print this help function"
+    echo
+    exit 1 # Exit script after printing help
 }
 
-if (( $# == 0)); then
-    echo "No input dir specified"
-    echo "Remember to specify -i input dir with i being one of the following input directories";
-    echo
-    ls "$TMPDIR"
-    echo
-    echo
-    echo "Exiting the script";
-    exit 1
-fi
 
-while getopts "i:sd:" flag; do
+# Get the command line arguments
+while getopts ":hn:s:" flag; do
     case "${flag}" in
-        p) projectName=${OPTARG};;
-        sd) stornextDir=${OPTARG};;
-        ?) helpFunction ;; # Print helpFunction 
+        h) helpFunction ;; 
+        n) projectName="${OPTARG}" ;;
+        s) stornextDir="${OPTARG}" ;;
+        \?) echo "Invalid option: $OPTARG" >&2; exit 1 ;;
     esac
 done
 
+if [[ $n != true && $sd != true ]]; then
+    echo "Remember to specify both -n projectName -sd stornextDir flags in order to run this script"
+    echo
+    echo "Exiting the script";
+    echo
+    exit 1
+fi 
 
 ## make sure to be in the vast/scratch/$USER
-CURRENTDIR=$(pwd)
-TMPDIR="/vast/scratch/users/$USER"
-INPUTDIR="$TMPDIR/$inputdir"
+STORNEXT_PROJECTDIR="/stornext/General/data/academic/lab_king/BIOINFORMATICS/$USER/$projectName"
+VASTSCRATCH_PROJECTDIR="/vast/scratch/users/$USER/$projectName"
 
+OUTDIR='out'
+DATADIR='data'
+PLOTSDIR="$OUTDIR/plots"
+FILESDIR="$OUTDIR/files"
+TABLESDIR="$OUTDIR/tables"
+CODEDIR='code'
 
-if [ ! -d "$INPUTDIR" ]; then
+directories=("$DATADIR" "$PLOTSDIR" "$FILESDIR" "$TABLESDIR" "$CODEDIR")
 
-    echo
-    echo "The specified $INPUTDIR directory does not exist."
-    echo "Here is the list of all directories available in your tmp dir $TMPDIR"
-    echo
-    ls "$TMPDIR"
-    echo "Exiting the script";
-    exit 1; 
-
-elif [[ "$CURRENTDIR" == "$TMPDIR" ]]; then
-    echo
-else 
-    cd "$INPUTDIR"
-fi
-
-echo
-echo "Resetting file timestamp for each file within the specified $INPUTDIR directory"
+echo "Creating the project directories on stornext and on vast/scratch"
 echo
 
-find . -type f -exec touch {} +
+for d in "${directories[@]}"; do
+
+  mkdir -p "$STORNEXT_PROJECTDIR/$d"
+  mkdir -p "$VASTSCRATCH_PROJECTDIR/$d"
+
+done
+
+if [[ $c == true ]]; then
+    
+    for d in "${directories[@]}"; do
+        mkdir -p "$STORNEXT_PROJECTDIR/$d"
+        mkdir -p "$VASTSCRATCH_PROJECTDIR/$d"
+    done
+fi 
+
 
 echo
-echo "Done, now your files have 2 weeks of life expectancy"
+echo "Done, your project folders are set up"
 echo
