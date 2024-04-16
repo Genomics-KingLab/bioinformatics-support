@@ -20,8 +20,8 @@ For all these reasons, here you can find some guidelines to implement whenever s
 2. Create a folder with this project name in each of the filesystems you have access to, eg. `stornext`, `vast/scratch` and, if it's a collaborative project, also on `vast/projects`. This means you should then have 2/3 project folders:
 
 ```
-/vast/scratch/users/<your-userID>/my-nobel-guaranteed-project  ## for all tmp files
-/stornext/General/data/academic/lab_king/BIOINFORMATICS/<your-userID>/my-nobel-guaranteed-project  ## for all final files and/or file versions that you want to lock
+/vast/scratch/users/$USER/my-nobel-guaranteed-project  ## for all tmp files
+/stornext/General/data/academic/lab_king/BIOINFORMATICS/$USER/my-nobel-guaranteed-project  ## for all final files and/or file versions that you want to lock
 /vast/projects/my-nobel-guaranteed-project  ## for all files that will need to be shared/access by collaborators
 ```
 
@@ -43,15 +43,8 @@ Here is the overview of an ideal structure each research project folder should h
 │   └── tables
 
 ```
-
 ----------------------------------------------------------------
 
 ## Set up a new project on Milton
 
-To set up a new project-folder with the above pictured structure you can use the `bin/projectSetup.sh` script. Copy it into your `$HOME/bin` directory on Milton (if you don't know how, read the `docs/running-executable-commands.md` guidelines). Once copied and ensured it can run, you can create as many project folders as you like by doing the following:
-
-```
-
-```
-
-  The script will create a project directory on vast/scratch (ie `/vast/scratch/<your-project-name>`) and on stornext (ie, `/stornext/General/data/academic/lab_king/BIOINFORMATICS/<your-userID>/<your-project-name>`), both containing the above subdirectories. 
+To set up a new project-folder with the above pictured structure you can use the `bin/projectSetup.sh` script. Copy it into your `$HOME/bin` directory on Milton (if you don't know how, read the `docs/running-executable-commands.md` guidelines). Once copied and ensured it can run, you can create as many project folders as you like by running `projectSetup.sh -n my-nobel-guaranteed-project`.  The script will create a project directory on vast/scratch (ie `/vast/scratch/$USER/my-nobel-guaranteed-project`) and on stornext (ie, `/stornext/General/data/academic/lab_king/BIOINFORMATICS/$USER/my-nobel-guaranteed-project`), both containing the above subdirectories. 
