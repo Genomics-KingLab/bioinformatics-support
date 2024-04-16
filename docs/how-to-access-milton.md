@@ -15,7 +15,7 @@
 
 Milton is WEHI's High-Performance Computer (HPC) cluster. To make it quick and painless, clusters are collections of computers networked together with software installed ensuring coordinations amongst them. Each computer in the cluster is referred as a node and you can have different type of nodes depending on their functions, eg:
 
-1. Login (or headhpc-architecture) node &rarr the computer where you land when you log in into the cluster. You generally use this node to edit your scripts, navigate through directories, retrieve files etc.. ** you dont run scripts on this node**
+1. Login (or headhpc-architecture) node &rarr the computer where you land when you log in into the cluster. You generally use this node to edit your scripts, navigate through directories, retrieve files etc.. **you dont run scripts on this node**
 2. Compute node &rarr the computer(s) where you run all your jobs
 
 The above mentioned software installed across the cluster that allows for managing the network is [SLURM](https://slurm.schedmd.com/documentation.html) (Simple Linux Utility for Resource Management). SLURM is an open source workload manager that allows to submit jobs from the login node to the compute node(s) as well as schedule them by using a queuing system. Below you have a schematic overview of what's an HPC.
@@ -67,9 +67,11 @@ Last login: Tue Apr 16 09:35:08 AEST 2024 from mac4184.wehi.edu.au on pts/40
 ### Log in from your browser
 Open OnDemand provides easy web access the HPC. From there you can then have access to 1) command-line shell and 2) SLURM job management. You can also open an RStudio session or a Jupyter notebook.
 To access Milton from Open OnDemand you need to login at [ondemand.hpc.wehi.edu.au](https://ondemand.hpc.wehi.edu.au/) which will look like the one below
+
 ![Open OnDemand login](../img/openOndemand-login.png)
 
 Enter just your username (not the full email address) and password and, once successfully logged in, you will be prompted to the home page which will look like the one below
+
 ![Open OnDemand home](../img/openOndemand-homePage.png)
 
 From here you can start navigating through the Milton cluster, start an RStudio session, submitting jobs etc.. by clicking on the tabs on the top bar.
