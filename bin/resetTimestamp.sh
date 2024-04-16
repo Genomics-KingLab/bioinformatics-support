@@ -10,7 +10,7 @@ helpFunction()
     echo "Here's how you should run this script:  "$(basename $0)"  -i inputdir -h "
     echo " -i = the path to the directory relative to /vast/scratch/$USER containing all the files you want to update"
     echo " -h = to print this help function"
-    echo
+    echo   
     exit 1 # Exit script after printing help
 }
 

@@ -9,7 +9,7 @@ helpFunction()
     echo
     echo "Here's how you should run this script:  "$(basename $0)" -n projectName -s stornextDir -h "
     echo " -n = the name of your new project"
-    echo " -s = the path on stornext relative to /stornext/General/data/academic/lab_king/BIOINFORMATICS/$USER where you want to creat e your project"
+    echo " -s = the path to stornext where you want to create the project, by default this is /stornext/General/data/academic/lab_king/BIOINFORMATICS/$USER/"
     echo " -h = to print this help function"
     echo
     exit 1 # Exit script after printing help
@@ -26,16 +26,25 @@ while getopts ":hn:s:" flag; do
     esac
 done
 
-if [[ $n != true && $sd != true ]]; then
-    echo "Remember to specify both -n projectName -sd stornextDir flags in order to run this script"
+if [[ -z "$projectName" ]]; then
     echo
+    echo "Project name not specified"
+    echo "To run this script remember to define at least the projectName by specifying the -n flag"
     echo "Exiting the script";
     echo
     exit 1
 fi 
 
 ## make sure to be in the vast/scratch/$USER
-STORNEXT_PROJECTDIR="/stornext/General/data/academic/lab_king/BIOINFORMATICS/$USER/$projectName"
+
+if [[ ! -z "$stornextDir" ]]; then
+
+    STORNEXT_PROJECTDIR="$stornextDir"
+else 
+    STORNEXT_PROJECTDIR="/stornext/General/data/academic/lab_king/BIOINFORMATICS/$USER/$projectName"
+
+fi 
+
 VASTSCRATCH_PROJECTDIR="/vast/scratch/users/$USER/$projectName"
 
 OUTDIR='out'
@@ -47,7 +56,9 @@ CODEDIR='code'
 
 directories=("$DATADIR" "$PLOTSDIR" "$FILESDIR" "$TABLESDIR" "$CODEDIR")
 
-echo "Creating the project directories on stornext and on vast/scratch"
+echo "Creating the project directories on: "
+echo " 1. stornext -> $STORNEXT_PROJECTDIR"
+echo " 2. vast/scratch -> $VASTSCRATCH_PROJECTDIR"
 echo
 
 for d in "${directories[@]}"; do
