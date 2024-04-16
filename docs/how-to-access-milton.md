@@ -67,10 +67,10 @@ Last login: Tue Apr 16 09:35:08 AEST 2024 from mac4184.wehi.edu.au on pts/40
 ### Log in from your browser
 Open OnDemand provides easy web access the HPC. From there you can then have access to 1) command-line shell and 2) SLURM job management. You can also open an RStudio session or a Jupyter notebook.
 To access Milton from Open OnDemand you need to login at [ondemand.hpc.wehi.edu.au](https://ondemand.hpc.wehi.edu.au/) which will look like the one below
-![Open OnDemand login](../img/openOndemand-login.png =100x20)
+![Open OnDemand login](../img/openOndemand-login.png)
 
 Enter just your username (not the full email address) and password and, once successfully logged in, you will be prompted to the home page which will look like the one below
-![Open OnDemand home](../img/openOndemand-homePage.png =100x20)
+![Open OnDemand home](../img/openOndemand-homePage.png)
 
 From here you can start navigating through the Milton cluster, start an RStudio session, submitting jobs etc.. by clicking on the tabs on the top bar.
 
