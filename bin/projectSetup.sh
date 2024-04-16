@@ -35,7 +35,7 @@ if [[ -z "$projectName" ]]; then
     exit 1
 fi 
 
-## make sure to be in the vast/scratch/$USER
+## Define where to create the project on stornext 
 
 if [[ ! -z "$stornextDir" ]]; then
 
