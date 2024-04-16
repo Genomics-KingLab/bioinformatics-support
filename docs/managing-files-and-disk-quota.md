@@ -10,7 +10,7 @@
 
 # File System Management
 
-WEHI computer clusters (Milton) has different spaces where you can store your files. Depending on the source of data, backup requirement, and compliance requirement, you should choose different spaces. Below you will see an overview of each space on Milton (ie, `vast/projects`, `vast/scratch` and `stornext`) and how to manage your files in there.
+Milton has different spaces where you can store your files. Depending on the source of data, backup requirement, and compliance requirement, you should choose different spaces. Below you will see an overview of each space on Milton (ie, `vast/projects`, `vast/scratch` and `stornext`) and how to manage your files in there.
 
 --------------------------------------------------
 
