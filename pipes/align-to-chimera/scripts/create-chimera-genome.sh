@@ -28,6 +28,36 @@ while getopts ":hs:g:o:" flag; do
 done
 
 
+## check if flags have been specified and if any of outputDir dir ends with / and, if so, remove the forward slash
+
+if [[ -z "$spikeGenome" ]]; then
+    echo
+    echo "spikeGenome fasta file not specified"
+    echo "Exiting the script";
+    echo
+    exit 1
+fi 
+
+if [[ -z "$genomeOfInterest" ]]; then
+    echo
+    echo "genomeOfInterest fasta file not specified"
+    echo "Exiting the script";
+    echo
+    exit 1
+fi 
+
+if [[ -z "$outputDir" ]]; then
+    echo
+    echo "outputDir not specified"
+    echo "Exiting the script";
+    echo
+    exit 1
+
+ elif [[ "$outputDir" == */ ]]; then
+      outputDir="${outputDir%/}"
+fi 
+
+
 ## Set up dirs -----------------------------------------------------------------------------------------------------------------------------------
 SCRIPT_ID="creating-chimera-genome"
 SPIKEINGENOME_FASTA="$spikeGenome"

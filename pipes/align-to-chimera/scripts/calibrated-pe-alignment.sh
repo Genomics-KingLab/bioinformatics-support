@@ -39,7 +39,7 @@ while getopts ":ho:d:s:g:" flag; do
     esac
 done
 
-## check if any of outdir/datadir or chimera genome dir ends with / and if so remove the forward slash
+## check if flags have been specified and if any of outdir/datadir or chimera genome dir ends with / and if so remove the forward slash
 
 if [[ -z "$outDir" ]]; then
     echo
