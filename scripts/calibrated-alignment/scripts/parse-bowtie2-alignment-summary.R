@@ -32,7 +32,7 @@ alignmentResults = data.frame(
         unMappedReads = as.numeric(as.character(alignRes$V1[3])),
         uniqMappedReads = as.numeric(as.character(alignRes$V1[4])),
         multiMappedReads = as.numeric(as.character(alignRes$V1[5])),
-        overallReadsAlignmentRate = as.numeric(substr(alignRes$V1[6], 1, nchar(as.character(alignRes$V1[6]))-1))
+        overallReadsAlignmentRate = as.numeric(substr(as.character(alignRes$V1[6]), 1, nchar(as.character(alignRes$V1[6]))-1))
 )
 
 alignmentResults <- mutate(alignmentResults, uniqueAlignmentRate = round(100 * (uniqMappedReads/TotalPairedReads),2))
