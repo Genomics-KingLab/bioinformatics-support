@@ -32,10 +32,41 @@ if(endsWith(inputDir, '/')) {
 
 files = list.files(inputDir,recursive=T,full.names=T,pattern=filePattern)
 
+fileNames = basename(files)
+
+cat('\n Combining the below files \n')
+fileNames
+cat('located within: ', inputDir,'\n')
+
+
 tables = lapply(files,function(f){
     f = read.table(f,header=T,sep='\t')
 })
 
 allTables <- do.call("rbind", tables)
+outfile = paste(inputDir,'all-samples-summary-table.txt',sep='')
+write.table(x = allTables,file = outfile,quote=F,row.names=F,col.names=T,sep='\t') 
 
-write.table(x = allTables,file = paste(inputDir,'all-samples-summary-table.txt',sep=''),quote=F,row.names=F,col.names=T,sep='\t') 
+cat('Combined table is located at: ',outfile ,'\n')
+
+
+
+
+library(ggplot2)
+library(magrittr)
+
+summaryFiles = list.files('.',pattern='all-samples-summary-table.txt',recursive=TRUE,full.names=TRUE)
+summary = lapply(summaryFiles,function(f){ 
+  f <-fread(f,sep='\t',header=T)[,c('sample','scalingFactor','normLibSizeGenomeOfInterest')]
+})
+names(summary) = c('withDup','noDup')
+summary <- Map(mutate,summary,approach = names(summary))%>%rbindlist()
+summary <- summary[,sample := gsub('GAB_SP140_CnT_','',sample)]
+
+pdf('./scaling-factor-plot.pdf',width=10,height=5)
+ggplot(summary,aes(x=sample,y=scalingFactor))+
+geom_histogram(stat='identity')+
+scale_x_discrete(guide = guide_axis(n.dodge = 2))+
+facet_wrap(approach~.,ncol=2,scale='free')
+dev.off()
+
