@@ -4,6 +4,9 @@
 ## email: king.h@wehi.edu.au and vespasiani.d@wehi.edu.au
 ## Description: Script to combine 2 genomes fasta files and create a: 1) fasta file (and its index); 2) bowtie2 index file;  3) chrom.size txt file for the resulting chimera and 4) chrom.size txt file for each of the 2 original genomes
 
+##  Script set up -------------------------------------------------------------------------------------------------------------------------------
+set -e  # exit on error 
+
 helpFunction()
 {
     echo  

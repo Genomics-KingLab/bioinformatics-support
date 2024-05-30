@@ -13,7 +13,9 @@
 ## 7) normalise the library size for the fragments mapping to the genome of interest with the scaling factor
 ## 8) calculate the genome coverage for each fragment mapping to the genome of interest
 
-##  Define the help function-------------------------------------------------------------------------------------------------------------------------------
+##  Script set up -------------------------------------------------------------------------------------------------------------------------------
+set -e  # exit on error 
+
 helpFunction()
 {
     echo
