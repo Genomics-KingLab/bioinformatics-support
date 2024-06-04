@@ -7,7 +7,9 @@
   - [Project overview](#project-overview)
   - [Content](#content)
   - [Prerequisites](#prerequisites)
+    - [Software dependencies](#software-dependencies)
   - [Quick start](#quick-start)
+    - [Creating a metadata file](#creating-a-metadata-file)
     - [Running the pipeline on HPC](#running-the-pipeline-on-hpc)
   - [Output](#output)
 
@@ -53,16 +55,19 @@ calibrated-pe-alignment/
 --------------------------------------------------
 ## Prerequisites
 
-To run this pipeline you need to fundamentally need to have 4 files:
+To run this pipeline you fundamentally need to have 4 files:
 1. Fasta file for the spike-in genome
 2. Fasta file for the genome of interest
 3. A sequencing fastq file(s) (one per read)
-4. A metadata txt file. This is a 3-columns tab-separated file (with no header) containing in order:
+4. A 3-columns tab-separated file (check the [Creating a metadata file](#creating-a-metadata-file) section to see how to create it) containing:
    1. Sample name
    2. Name of sequencing read 1
    3. Name of sequencing read 2
 
-You also need to have installed the [dplyr R package](https://dplyr.tidyverse.org/) in the same R module you will be using for running this pipeline. If this is R/4.4.0 then simply:
+### Software dependencies
+
+To run the scripts within this repository you need to have installed:
+1.[dplyr](https://dplyr.tidyverse.org/) R package in the same R module you will be using for running this pipeline. Here I am using R/4.4.0. So for example:
 
 ```
 module load R/4.4.0 # load the module
@@ -70,6 +75,24 @@ R # enter an R session
 install.packages('dplyr') # install the package. This might ask you from which CRAN repository you want to install it. Just select that corresponding to your geographical location
 library(dplyr) # to ensure it has successfully installed
 ```
+
+2.[pandas](https://pandas.pydata.org/), [sys](https://docs.python.org/3/library/sys.html), [openpyxl](https://openpyxl.readthedocs.io/en/stable/), [os](https://docs.python.org/3/library/os.html) python modules in the same python module you will be using for running this pipeline (same as above). Here I am using python/3.11.4. So for example:
+
+```
+module load python/3.11.4 # load the module
+python ## enter a python session
+import pandas,sys,os,openpyxl ## test is you already have these modules installed (some of them should).
+```
+
+If you dont get anything then it means you already have the modules installed in your python module. So you are good to go. Otherwise, if you instead get an error like:
+
+```
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+ModuleNotFoundError: No module named <moduleName>
+```
+
+Then it means you need to install that module. To do so you need to exit the python session (ie, `exit()`). Then from the command line run: `pip install <the-module-you-need> ## eg  pip install openpyxl`.
 
 --------------------------------------------------
 
@@ -93,7 +116,7 @@ Below there is a step-by-step guide on how to run this pipeline. Before you run 
 # -g = full path to the fasta file (including filename) of the genome of interest. File can be gzip compressed and it must end with .fa.gz
 # -o = the path to the directory where you want to save all the output of this script. Here the script will create 2 directories: 1) named <spike-in-genome>-<genome-of-interest> containing all output files and 2) a logs directory containing the log from bowtie2-build
 ```
-
+   
 4. Align reads to the chimera genome by running:
 
 ```
@@ -120,6 +143,27 @@ Rscript ./combine-summary-tables.R /your/specified/output/directory/ -summary.tx
 
 This latter script will look for the `tables/` subdirectory within `/your/specified/output/directory/` and will take all samples inside that directory ending with your specified pattern (eg, *-summary.txt*). 
 It will combine all files into a single table which will then be written at `/your/specified/output/directory/tables/all-samples-summary-table.txt`
+
+### Creating a metadata file
+
+The metadata file is required to run the `calibrated-pe-alignment.sh` script (ie to align fastq files to the chimera genome). This is a 3-columns no-header tab-separated txt file (see example below) containing the sample name (column1); name of fastq file containing the forward reads (column2) and name of fastq file containing the reverse reads (column3).  
+
+```
+S000488 G000454_batch1_1A       2024-03-20
+S000488 G000454_batch1_1B       2024-03-20
+S000488 G000454_batch1_2A       2024-03-20
+S000488 G000454_batch1_2B       2024-03-20
+```
+
+There are many ways to create this file, either manually or programmatically. However, I noticed that uncorrect formatting of this file often causes unexpected failures of the main script. To avoid this, I've created another script (`scripts/prepare-metadata-file.py`) that takes as input a CSV or a xlsx file and generates a correct metadata file in the same directory. This script takes 4 arguments. Below you can see an example on how to run itt: 
+
+```
+path/to/your/project/folder/calibrated-pe-alignment/scripts/prepare-metadata-file.py  \
+   csv/xlsx file \ ## this is the full path to the csv/xlsx file  
+   R1 column ID \ ## the id of the column containing the fastq filenames for read 1 (ie forward read)
+   R2 column ID  ## the id of the column containing the fastq filenames for read 2 (ie reverse read)
+```
+**Note that if using an xlsx file as input, the samples information you want to extract need to be on the first sheet.**
 
 ### Running the pipeline on HPC
 
@@ -150,7 +194,6 @@ main-output-directory
 │   ├── <your-sample>-fragments-uniqMap-<genomeOfInterest>.bam.bai
 ├── bed
 │   ├── <your-sample>-fragments-calibratedGenCov-<genomeOfInterest>.bg ## a bedGraph file containing a scaled genome coverage of the number of fragments uniquely mapping to the genome of interest (ie, scaled = calibrated on the number of fragments mapping to the spike-in genome) 
-│   ├── <your-sample>-fragments-uniqMap-<genomeOfInterest>.bed ## same content as the above bam file but in a bed format --> to be moved to tmp folder
 ├── bigwig
 │   ├── <your-sample>-fragments-calibratedGenCov-<genomeOfInterest>.bw  ## same as the bedGraph above but in a bigWig format for visualisation
 ├── logs
@@ -176,6 +219,8 @@ intermediate-output-directory
 ├── bed
 │   ├── <your-sample>-fragments-uniqMap.bed ## a be file containing a fragments uniquely mapping to the chimera genome
 │   ├── <your-sample>-reads-uniqMap-sortName-fixmate-final.bed ## 10 column-bed file containing the paired-end reads delimiting the fragments
+│   ├── <your-sample>-fragments-uniqMap-<genomeOfInterest>.bed ## same content as the above bam file but in a bed format 
+│   ├── <your-sample>-fragments-uniqMap-<spikeInGenome>.bed ## same content as the above bam file but in a bed format 
 ├── bigwig
 │   ├── <your-sample>-fragments-calibratedGenCov-<genomeOfInterest>.bw  ## same as the bedGraph above but in a bigWig format for visualisation
 ├── logs

@@ -16,16 +16,15 @@ module load bedtools/2.31.1
 module load ucsc-tools/331
 
 ## specify I/O directories and files 
-KINGLAB_DIR="/stornext/General/data/academic/lab_king/BIOINFORMATICS"
-TMPDIR="/vast/scratch/users/vespasiani.d/" ## path to your vast/scrath tmp directory
-SCRIPTS_DIR="${KINGLAB_DIR}/scripts/calibrated-pe-alignment/scripts"  ## change this to where you have copied the calibrated-pe-alignment folder
-OUT_DIR="${KINGLAB_DIR}/vespasiani.d/gabbyTest/calibrated-CutTag-Alignemnt-keepDup" ## change this to where you want the output files to be saved
-DATA_DIR="${KINGLAB_DIR}/vespasiani.d/gabbyTest/data/fastq" ## change this to your data directory containing the fastq files
-CHIMERAGENOME_DIR="${KINGLAB_DIR}/databank/chimeras/ecoliASM584v2-hg38" ## change this to the location of your chimera genome folder
-METADATAFILE="${KINGLAB_DIR}/vespasiani.d/gabbyTest/data/metadata/gabbyTest-metadata.txt" ## This is a text file containing sample names 1 per row (and no header)
-
+BASE_DIR="/stornext/General/data/academic/lab_king/BIOINFORMATICS/scripts/calibrated-pe-alignment" ## path to where calibrated-pe-alignment folder is located 
+TMPDIR="/vast/scratch/users/$USER/" ## path to your vast/scrath tmp directory 
+OUT_DIR="/stornext/General/data/academic/lab_king/BIOINFORMATICS/vespasiani.d/gabbyTest/calibrated-CutTag-Alignemnt-keepDup" ## path to where the output folder and files will be saved
+DATA_DIR="/stornext/General/data/academic/lab_king/BIOINFORMATICS/vespasiani.d/gabbyTest/data/fastq" ## path to data directory containing the fastq files for your experiment
+CHIMERAGENOME_DIR="/stornext/General/data/academic/lab_king/BIOINFORMATICS/databank/chimeras/ecoliASM584v2-hg38" ## path to the folder containing your chimera genome files
+METADATAFILE="/stornext/General/data/academic/lab_king/BIOINFORMATICS/vespasiani.d/gabbyTest/data/metadata/gabbyTest-metadata.txt" ## path to the metadata txt file
 METADATAFILENAME=$(basename ${METADATAFILE%.txt})
 NEWMETADATAFILE="${TMPDIR}${METADATAFILENAME}_sample_${SLURM_ARRAY_TASK_ID}.txt"
+SCRIPTS_DIR="${BASE_DIR}/scripts" 
 
 echo
 echo "Creating a temporary new metadata file by taking the line number $SLURM_ARRAY_TASK_ID of the original $METADATAFILENAME file and saving it at $NEWMETADATAFILE"
@@ -38,6 +37,13 @@ echo "Using the content of the new (single-line) metadata file to run the sbatch
 echo
 
 ${SCRIPTS_DIR}/calibrated-pe-alignment.sh -o" $OUT_DIR" -d "$DATA_DIR" -g "$CHIMERAGENOME_DIR"  -m "$NEWMETADATAFILE" -k yes
+
+echo
+echo "Combining all samples summary metadata information into a single file"
+echo
+
+
+Rscript ${SCRIPTS_DIR}/combine-summary-tables.R $OUT_DIR -summary.txt
 
 
 echo

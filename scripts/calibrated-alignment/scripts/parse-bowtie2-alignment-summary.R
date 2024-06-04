@@ -13,12 +13,12 @@ if (length(args)==0) {
   stop("ERROR: you need to specify the location of the bowtie2 log file and the path to the output directory as arguments", call.=FALSE)
 }
 
-if(!require("dplyr")){
-  r <- getOption("repos")
-  r["CRAN"] <- "http://cran.us.r-project.org"
-  options(repos = r)
-  install.packages("dplyr", dependencies =TRUE)
-}
+# if(!require("dplyr")){
+#   r <- getOption("repos")
+#   r["CRAN"] <- "http://cran.us.r-project.org"
+#   options(repos = r)
+#   install.packages("dplyr", dependencies =TRUE)
+# }
 
 bowtie2Logfile = args[[1]]
 outdir = args[[2]]

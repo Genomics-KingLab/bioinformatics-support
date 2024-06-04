@@ -301,7 +301,7 @@ while IFS= read -r line; do
   samtools view -h ${OUT_TMPDIR_BAM}/${SAMPLE}-fragments-uniqMap.bam | grep $SPIKEGENOME | sed -r s/$SPIKEGENOME-//g | samtools view -b - > ${OUT_TMPDIR_BAM}/${SAMPLE}-fragments-uniqMap-${SPIKEGENOME}.bam
   samtools sort ${OUT_TMPDIR_BAM}/${SAMPLE}-fragments-uniqMap-${SPIKEGENOME}.bam -o ${OUT_DIR_BAM}/${SAMPLE}-fragments-uniqMap-${SPIKEGENOME}.bam
   samtools index ${OUT_DIR_BAM}/${SAMPLE}-fragments-uniqMap-${SPIKEGENOME}.bam  ${OUT_DIR_BAM}/${SAMPLE}-fragments-uniqMap-${SPIKEGENOME}.bam.bai
-  bedtools bamtobed -i ${OUT_DIR_BAM}/${SAMPLE}-fragments-uniqMap-${SPIKEGENOME}.bam > ${OUT_DIR_BED}/${SAMPLE}-fragments-uniqMap-${SPIKEGENOME}.bed ## save the fragment file as a bed file for downstream analysis
+  bedtools bamtobed -i ${OUT_DIR_BAM}/${SAMPLE}-fragments-uniqMap-${SPIKEGENOME}.bam > ${OUT_TMPDIR_BED}/${SAMPLE}-fragments-uniqMap-${SPIKEGENOME}.bed ## save the fragment file as a bed file for downstream analysis
   fragmentsMappedSpikedGenome="$(samtools view -c ${OUT_DIR_BAM}/${SAMPLE}-fragments-uniqMap-${SPIKEGENOME}.bam)"
 
   ##------------------------------------------------------------------------------------------------------------------------------------
@@ -321,7 +321,7 @@ while IFS= read -r line; do
   samtools view -h ${OUT_TMPDIR_BAM}/${SAMPLE}-fragments-uniqMap.bam | grep $GENOMEOFINTEREST | sed -r s/$GENOMEOFINTEREST-//g  | samtools view -b - > ${OUT_TMPDIR_BAM}/${SAMPLE}-fragments-uniqMap-${GENOMEOFINTEREST}.bam
   samtools sort ${OUT_TMPDIR_BAM}/${SAMPLE}-fragments-uniqMap-${GENOMEOFINTEREST}.bam -o ${OUT_DIR_BAM}/${SAMPLE}-fragments-uniqMap-${GENOMEOFINTEREST}.bam 
   samtools index ${OUT_DIR_BAM}/${SAMPLE}-fragments-uniqMap-${GENOMEOFINTEREST}.bam  ${OUT_DIR_BAM}/${SAMPLE}-fragments-uniqMap-${GENOMEOFINTEREST}.bam.bai
-  bedtools bamtobed -i ${OUT_DIR_BAM}/${SAMPLE}-fragments-uniqMap-${GENOMEOFINTEREST}.bam > ${OUT_DIR_BED}/${SAMPLE}-fragments-uniqMap-${GENOMEOFINTEREST}.bed ## save the fragment file as a bed file for downstream analysis
+  bedtools bamtobed -i ${OUT_DIR_BAM}/${SAMPLE}-fragments-uniqMap-${GENOMEOFINTEREST}.bam > ${OUT_TMPDIR_BED}/${SAMPLE}-fragments-uniqMap-${GENOMEOFINTEREST}.bed 
   
   fragmentsMappedGenomeOfInterest="$(samtools view -c ${OUT_DIR_BAM}/${SAMPLE}-fragments-uniqMap-${GENOMEOFINTEREST}.bam)"
 
