@@ -1,5 +1,4 @@
-
-#!/bin/sh
+#!/bin/bash
 ## AUTHOR: Davide Vespasiani
 ## EMAIL: vespasiani.d@wehi.edu.au
 ## DESCRIPTION: use this script to recursively touch each file in your vast/scratch directory in order to reset the timestamp and gain extra 2 weeks of life for them
