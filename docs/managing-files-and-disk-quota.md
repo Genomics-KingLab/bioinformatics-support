@@ -10,13 +10,30 @@
 
 # File System Management
 
-Milton has different spaces where you can store your files. Depending on the source of data, backup requirement, and compliance requirement, you should choose different spaces. Below you will see an overview of each space on Milton (ie, `vast/projects`, `vast/scratch` and `stornext`) and how to manage your files in there.
+Milton has different spaces where you can store your files. Depending on the source of data, backup requirement, and compliance requirement, you should choose different spaces. Below you will see an overview of each space on Milton and how to manage your files in there. Very briefly:
+1. `vast/projects` &rarr; a project-based space where to store final results for longish (ie up to 6 months). No backup. Disk quota is limited and it needs to be approved by WEHI support
+2. `vast/scratch` &rarr; a space where to store all intermediate files. No backup. 14-days deletion policy if files are untouched. Large disk quota per user.
+3. `stornext` &rarr; a space where to store all raw files (and scripts) long term. Each file is backed up (ie archived) on tape every night. Disk space is limited
 
 --------------------------------------------------
 
 ## Checking disk quota usage
 
-To check the disk quota usage, eg either within the your `HOME` and `vast/scratch/users/$USER` directories, do the following:
+To check the disk quota quote (ie how much space) we have on the King lab directory on stornext do the following:
+
+```
+module load stornext/ ## load the stornext module which contains functionalities for managing files 
+sn_quota /stornext/General/data/academic/lab_king/  ## run the sn_quota command specifying the path to the lab_king directory on stornext
+``` 
+
+The command will return you something like the below which will tell you how much space we are currently cumulatively (as a lab) using
+
+```
+--------------------------------------------------
+ /stornext/General/data/academic/lab_king: 
+                  0.75 / 1.00 TB                  
+```
+If instead you want to check your own disk quota usage (ie, how much space you have within the your `HOME` and `vast/scratch/users/$USER` directories) do the following:
 
 ```
 module load stornext/
@@ -60,7 +77,6 @@ Below you can find a list of commands that might be useful for checking disk spa
 
 * `du -hd1` to check the size of each file in a given folder
 
-
 --------------------------------------------------
 
 ## Managing data on Stornext
@@ -78,7 +94,7 @@ pigz --best <file? ## slower but achieves better compression
 
 ### Archiving and retrieving files
 
-Because data on stornext are backed up onto a tape-based filesystem, any given file on stornext has 2 copies: 1)a disk and 2) an archived copy. To inspect this, upon logging into Milton and navigating to the lab stornext project directory, you can run the following command:
+Because data on stornext are backed up onto a tape-based filesystem, any given file on stornext has 2 copies: 1)a disk and 2) an archived copy. **Note that backup is done each night, so a newly generated file will not have an archived copy until next day**. To inspect how a file is saved on stornext, upon logging into Milton and navigating to the lab stornext project directory, you can run the following command:
 
 ```
 module load stornext/  ## load the stornext module
@@ -144,16 +160,11 @@ VAST is a high-performance storage system. At WEHI, you can access `vast/scratch
 
 On the other hand, to access `vast/projects` you need to complete [this form](https://support.wehi.edu.au/support/catalog/items/72), requesting the specific amount of space and for how long (up to 6 months) you'd like to have for your own project(s). Once approved, you will be able to access the project directory at `/vast/projects/project-<id>`.
 
-An adequate and smart usage of all the 3 storage areas: 
-1. `stornext`
-2. `vast/scratch`
-3. `vast/projects`
-Should be enough to manage most projects within the lab, check the [best practices section](#best-practices) below to read how to store and work with your data.
-
 --------------------------------------------------
-
 ## Resources
-Below you can find a list of resources you can consult to learn more about filesytem management at WEHI. 
+
+Below you can find a list of resources you can consult to learn more about filesytem management at WEHI. Note that an adequate and smart usage of all the 3 storage areas, (ie,stornext; vast/scratch and vast/projects) should be enough to manage most projects within the lab. For an overview on the best-practices we implement in the King lab @WEHI check the [manage-sequencing-results.md](https://github.com/Genomics-KingLab/bioinformatics-support/blob/main/lab-protocols/manage-sequencing-results.md) doc stored in the `lab-protocols/` directory within this repo.
+
 
 * [Data storage guidelines](https://wehieduau.sharepoint.com/sites/rc2/SitePages/Data-how-to-store.aspx#stornext-and-vast)
 * [Info on disk quotas](https://wehieduau.sharepoint.com/sites/rc2/SitePages/Disk-quotas.aspx)
