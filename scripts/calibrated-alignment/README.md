@@ -149,10 +149,8 @@ It will combine all files into a single table which will then be written at `/yo
 The metadata file is required to run the `calibrated-pe-alignment.sh` script (ie to align fastq files to the chimera genome). This is a 3-columns no-header tab-separated txt file (see example below) containing the sample name (column1); name of fastq file containing the forward reads (column2) and name of fastq file containing the reverse reads (column3).  
 
 ```
-S000488 G000454_batch1_1A       2024-03-20
-S000488 G000454_batch1_1B       2024-03-20
-S000488 G000454_batch1_2A       2024-03-20
-S000488 G000454_batch1_2B       2024-03-20
+Sample1 Sample1-R1.fastq.gz       Sample1-R2.fastq.gz
+Sample2 Sample2-R1.fastq.gz       Sample2-R2.fastq.gz
 ```
 
 There are many ways to create this file, either manually or programmatically. However, I noticed that uncorrect formatting of this file often causes unexpected failures of the main script. To avoid this, I've created another script (`scripts/prepare-metadata-file.py`) that takes as input a CSV or a xlsx file and generates a correct metadata file within the same directory of the input file. This script takes 4 arguments. Below you can see an example on how to run itt: 
