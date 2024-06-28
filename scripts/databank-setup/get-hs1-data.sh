@@ -53,29 +53,29 @@ fi
 ## Download files --------------------------------
 
 ## fasta
-wget --content-disposition -P https://hgdownload.soe.ucsc.edu/goldenPath/hs1/bigZips/hs1.fa.gz $DATABANK_DIR/fasta/
+wget --content-disposition -P $DATABANK_DIR/fasta/ https://hgdownload.soe.ucsc.edu/goldenPath/hs1/bigZips/hs1.fa.gz 
 
 ## 2bit index
-wget --content-disposition -P https://hgdownload.soe.ucsc.edu/goldenPath/hs1/bigZips/hs1.2bit $DATABANK_DIR/2bit/
-wget --content-disposition -P https://hgdownload.soe.ucsc.edu/goldenPath/hs1/bigZips/hs1.2bit.bpt $DATABANK_DIR/2bit/
+wget --content-disposition -P $DATABANK_DIR/2bit/ https://hgdownload.soe.ucsc.edu/goldenPath/hs1/bigZips/hs1.2bit 
+wget --content-disposition -P $DATABANK_DIR/2bit/ https://hgdownload.soe.ucsc.edu/goldenPath/hs1/bigZips/hs1.2bit.bpt 
 
 ## annotations
-wget --content-disposition -P  https://hgdownload.soe.ucsc.edu/goldenPath/hs1/bigZips/hs1.chromAlias.bb $DATABANK_DIR/annotations/
-wget --content-disposition -P  https://hgdownload.soe.ucsc.edu/goldenPath/hs1/bigZips/hs1.chromAlias.txt $DATABANK_DIR/annotations/
-wget --content-disposition -P  https://hgdownload.soe.ucsc.edu/goldenPath/hs1/bigZips/hs1.repeatMasker.out.gz $DATABANK_DIR/annotations/
-wget --content-disposition -P  https://hgdownload.soe.ucsc.edu/goldenPath/hs1/bigZips/hs1.repeatMasker.version.txt $DATABANK_DIR/annotations/
+wget --content-disposition -P $DATABANK_DIR/annotations/ https://hgdownload.soe.ucsc.edu/goldenPath/hs1/bigZips/hs1.chromAlias.bb 
+wget --content-disposition -P $DATABANK_DIR/annotations/ https://hgdownload.soe.ucsc.edu/goldenPath/hs1/bigZips/hs1.chromAlias.txt 
+wget --content-disposition -P $DATABANK_DIR/annotations/ https://hgdownload.soe.ucsc.edu/goldenPath/hs1/bigZips/hs1.repeatMasker.out.gz 
+wget --content-disposition -P $DATABANK_DIR/annotations/ https://hgdownload.soe.ucsc.edu/goldenPath/hs1/bigZips/hs1.repeatMasker.version.txt 
 
 ## genes
-wget --content-disposition -P  https://hgdownload.soe.ucsc.edu/goldenPath/hs1/bigZips/genes/hs1.ncbiRefSeq.gp.gz  $DATABANK_DIR/genes/
-wget --content-disposition -P  https://hgdownload.soe.ucsc.edu/goldenPath/hs1/bigZips/genes/hs1.ncbiRefSeq.gtf.gz $DATABANK_DIR/genes/
+wget --content-disposition -P $DATABANK_DIR/genes/ https://hgdownload.soe.ucsc.edu/goldenPath/hs1/bigZips/genes/hs1.ncbiRefSeq.gp.gz 
+wget --content-disposition -P $DATABANK_DIR/genes/ https://hgdownload.soe.ucsc.edu/goldenPath/hs1/bigZips/genes/hs1.ncbiRefSeq.gtf.gz 
 
 ## files from https://github.com/marbl/CHM13?tab=readme-ov-file
-aws s3 --no-sign-request cp s3://human-pangenomics/T2T/CHM13/assemblies/annotation/chm13v2.0_RefSeq_Liftoff_v5.1.gff3.gz $DATABANK_DIR/genes/ ## JHU RefSeqv110 + Liftoff v5.1
-aws s3 --no-sign-request cp s3://human-pangenomics/T2T/CHM13/assemblies/annotation/chm13.draft_v2.0.gene_annotation.gff3 $DATABANK_DIR/genes/ ## UCSC GENCODEv35 CAT/Liftoff v2
+aws s3 --no-sign-request cp s3://human-pangenomics/T2T/CHM13/assemblies/annotation/chm13v2.0_RefSeq_Liftoff_v5.1.gff3.gz && mv chm13v2.0_RefSeq_Liftoff_v5.1.gff3.gz $DATABANK_DIR/genes/ ## JHU RefSeqv110 + Liftoff v5.1
+aws s3 --no-sign-request cp s3://human-pangenomics/T2T/CHM13/assemblies/annotation/chm13.draft_v2.0.gene_annotation.gff3 && mv chm13.draft_v2.0.gene_annotation.gff3  $DATABANK_DIR/genes/ ## UCSC GENCODEv35 CAT/Liftoff v2
 
 ## liftover chains
-wget --content-disposition -P https://hgdownload.soe.ucsc.edu/goldenPath/hs1/liftOver/hs1ToHg19.over.chain.gz $DATABANK_DIR/liftover/
-wget --content-disposition -P https://hgdownload.soe.ucsc.edu/goldenPath/hs1/liftOver/hs1ToHg38.over.chain.gz $DATABANK_DIR/liftover/
+wget --content-disposition -P $DATABANK_DIR/liftover/ https://hgdownload.soe.ucsc.edu/goldenPath/hs1/liftOver/hs1ToHg19.over.chain.gz
+wget --content-disposition -P $DATABANK_DIR/liftover/ https://hgdownload.soe.ucsc.edu/goldenPath/hs1/liftOver/hs1ToHg38.over.chain.gz 
 
 ## Create extra files ---------------------------------------
 
@@ -101,17 +101,18 @@ STAR --runThreadN 20 \
 ## cellranger
 ## Note the gtf file used for this step is chm13.draft_v2.0.gene_annotation-gff3Converted-AttributesAndSourceFiltered.gtf
 ## The original file was the UCSC GENCODEv35 CAT/Liftoff v2 gff3 file (chm13.draft_v2.0.gene_annotation.gff3) which was:
-## 1) converted into a GTF using custom script (see bin/convert-gff2gtf.R)
-## 2) filtered to retain information for these attributes: 'protein_coding','lncRNA','IG_V_pseudogene','IG_V_gene','IG_D_gene','IG_J_gene','IG_J_pseudogene','IG_C_gene','IG_C_pseudogene','IG_pseudogene','TR_V_gene','TR_V_pseudogene','TR_J_gene','TR_J_pseudogene','TR_C_gene'
+## 1) Converted into a GTF using custom script (see bin/convert-gff2gtf.R)'
+## 2) Filtered to remove multiple gene annotation sources (ie, CAT and Liftoff) --> in case of multiple sources I've kept only those with source = CAT; otherwise just the single reported annotation
+## 2) Filtered to retain information for these attributes: 'protein_coding','lncRNA','IG_V_pseudogene','IG_V_gene','IG_D_gene','IG_J_gene','IG_J_pseudogene','IG_C_gene','IG_C_pseudogene','IG_pseudogene','TR_V_gene','TR_V_pseudogene','TR_J_gene','TR_J_pseudogene','TR_C_gene'
 
-if (file $DATABANK_DIR/genes/chm13.draft_v2.0.gene_annotation-gff3Converted.gtf* | grep -q compressed ) ; then
-    pigz --decompress $DATABANK_DIR/genes/chm13.draft_v2.0.gene_annotation-gff3Converted.gtf.gz
+if (file $DATABANK_DIR/genes/chm13.draft_v2.0.gene_annotation-gff3Converted-AttributesAndSourceFiltered.gtf* | grep -q compressed ) ; then
+    pigz --decompress $DATABANK_DIR/genes/chm13.draft_v2.0.gene_annotation-gff3Converted-AttributesAndSourceFiltered.gtf.gz
 fi
 
 cellranger mkref \
  --genome="$GENOME" \
  --fasta="${DATABANK_DIR}/${GENOME}.fa" \
- --genes="${DATABANK_DIR}/genes/chm13.draft_v2.0.gene_annotation-gff3Converted.gtf" \
+ --genes="${DATABANK_DIR}/genes/chm13.draft_v2.0.gene_annotation-gff3Converted-AttributesAndSourceFiltered.gtf" \
  --nthreads=20 \
  --memgb=100 \
  --output-dir "${DATABANK_DIR}/cellranger"
