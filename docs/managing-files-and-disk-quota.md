@@ -33,6 +33,14 @@ The command will return you something like the below which will tell you how muc
  /stornext/General/data/academic/lab_king: 
                   0.75 / 1.00 TB                  
 ```
+
+If you have a project on `vast/projects/` and you want to check how much space you are currently using, run:
+
+```
+module load stornext
+vast_project_quota <project name>
+```
+
 If instead you want to check your own disk quota usage (ie, how much space you have within the your `HOME` and `vast/scratch/users/$USER` directories) do the following:
 
 ```
@@ -166,6 +174,7 @@ On the other hand, to access `vast/projects` you need to complete [this form](ht
 Below you can find a list of resources you can consult to learn more about filesytem management at WEHI. Note that an adequate and smart usage of all the 3 storage areas, (ie,stornext; vast/scratch and vast/projects) should be enough to manage most projects within the lab. For an overview on the best-practices we implement in the King lab @WEHI check the [manage-sequencing-results.md](https://github.com/Genomics-KingLab/bioinformatics-support/blob/main/lab-protocols/manage-sequencing-results.md) doc stored in the `lab-protocols/` directory within this repo.
 
 
+* [Accessing the HPC different storages](https://wehieduau.sharepoint.com/sites/rc2/SitePages/high-performance-storage.aspx)
 * [Data storage guidelines](https://wehieduau.sharepoint.com/sites/rc2/SitePages/Data-how-to-store.aspx#stornext-and-vast)
 * [Info on disk quotas](https://wehieduau.sharepoint.com/sites/rc2/SitePages/Disk-quotas.aspx)
 * [VAST file system](https://wehieduau.sharepoint.com/sites/rc2/SitePages/high-performance-storage.aspx)
