@@ -1,0 +1,16 @@
+[gene-expression]
+reference,/stornext/General/data/academic/lab_king/BIOINFORMATICS/databank/genomes/hs1/cellranger
+create-bam,true
+no-secondary,true
+check-library-compatibility,true
+include-introns,true
+
+[feature]
+reference,/vast/projects/SAVI/data/config-files/SAVI_Batch1_features.csv
+
+[libraries]
+fastq_id,fastqs,feature_types
+SAVI_Batch1_1A_GEX,/vast/scratch/users/vespasiani.d/SAVI/data/sequencing-data/fastq/240522_LH00190_0433_B22HN72LT3,Gene Expression
+SAVI_Batch1_1A_GEX,/vast/scratch/users/vespasiani.d/SAVI/data/sequencing-data/fastq/240525_LH00190_0436_A22HL23LT3,Gene Expression
+SAVI_Batch1_1A_ADT,/vast/scratch/users/vespasiani.d/SAVI/data/sequencing-data/fastq/240522_LH00190_0433_B22HN72LT3,Antibody Capture
+SAVI_Batch1_1A_ADT,/vast/scratch/users/vespasiani.d/SAVI/data/sequencing-data/fastq/240525_LH00190_0436_A22HL23LT3,Antibody Capture

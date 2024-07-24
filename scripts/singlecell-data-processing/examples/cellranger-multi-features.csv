@@ -1,0 +1,5 @@
+"id","name","read","pattern","sequence","feature_type"
+"C0006","CD86","R2","5PNNNNNNNNNN(BC)","GTCTTTGTCAGTGCA","Antibody Capture"
+"C1052","CD224","R2","5PNNNNNNNNNN(BC)","CTGATGAGATGTCAG","Antibody Capture"
+"Human_HTO_1","001_V1","R2","5PNNNNNNNNNN(BC)","GTCAACTCTTTAGCG","Antibody Capture"
+"Human_HTO_2","001_V2","R2","5PNNNNNNNNNN(BC)","TGATGGCCTATTGGG","Antibody Capture"
