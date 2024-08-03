@@ -12,7 +12,6 @@
 
 ## ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ## Set up the script
-source('utils/r-utils.R')
 library(Seurat)
 library(DropletUtils)
 library(knitr)
@@ -39,7 +38,6 @@ outFileDir = createDir(path=paste(vastProjectDir$files,scriptID,sep='/'))
 ## Read cellranger output
 ## First read barcodes/features/matrix raw and filtered files into a Seurat object and then split the ADT,HTO and GEX into different assays.
 ## Splitting the ADT and HTO data into separate assays is done by reading the Antibody feature info csv file containing the antibody names
-
 
 tenx_raw_out_dir = 'path/to/multi/count/raw_feature_bc_matrix/' 
 features_file = 'path/to/multi/count/cellranger-multi-features.csv' ## comma-separated file containing the feature info for the ADT/HTO or any other assays
