@@ -95,7 +95,7 @@ STAR --runThreadN 20 \
 --genomeDir $DATABANK_DIR/star \
 --genomeFastaFiles $DATABANK_DIR/fasta/$GENOME.fa \
 --sjdbGTFfile $DATABANK_DIR/genes/chm13.draft_v2.0.gene_annotation.gff3 \
---sjdbGTFtagExonParentTranscript Parent
+--sjdbGTFtagExonParentTranscript Parent ## this needs to be specified because i am using the gff3 file; generally default value is fine for gtf files 
 
 
 ## cellranger

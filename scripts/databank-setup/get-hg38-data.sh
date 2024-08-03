@@ -70,11 +70,11 @@ wget --content-disposition -P $DATABANK_DIR/genes/ https://hgdownload.soe.ucsc.e
 wget --content-disposition -P $DATABANK_DIR/genes/ https://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/genes/hg38.refGene.gtf.gz
 
 ## liftover chains
-wget --content-disposition -P $DATABANK_DIR/liftover/ https://hgdownload.soe.ucsc.edu/gbdb/hg38/liftOver/hg38ToHg19.over.chain.gz
-wget --content-disposition -P $DATABANK_DIR/liftover/ https://hgdownload.soe.ucsc.edu/gbdb/hg38/liftOver/hg38ToHs1.over.chain.gz
+wget --content-disposition -P $DATABANK_DIR/liftover/ https://hgdownload.soe.ucsc.edu/gbdb/hg38/liftOver/hg38ToHg19.over.chain.gz && gunzip hg38ToHg19.over.chain.gz
+wget --content-disposition -P $DATABANK_DIR/liftover/ https://hgdownload.soe.ucsc.edu/gbdb/hg38/liftOver/hg38ToHs1.over.chain.gz && gunzip hg38ToHs1.over.chain.gz
 
 ## ENCODE blacklisted regions
-wget --content-disposition -P $DATABANK_DIR/annotations/ https://www.encodeproject.org/files/ENCFF356LFX/@@download/ENCFF356LFX.bed.gz && ENCFF356LFX.bed.gz mv hg38_blacklist_ENCFF356LFX.bed.gz
+wget --content-disposition -P $DATABANK_DIR/annotations/ https://www.encodeproject.org/files/ENCFF356LFX/@@download/ENCFF356LFX.bed.gz && mv ENCFF356LFX.bed.gz hg38_blacklist_ENCFF356LFX.bed.gz
 
 ## Create extra files ---------------------------------------
 
