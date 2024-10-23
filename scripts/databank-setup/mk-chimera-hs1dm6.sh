@@ -87,7 +87,6 @@ STAR --runThreadN 30 \
 --genomeFastaFiles $CHIMERAGENOME_DIR/$CHIMERAGENOME.fa \
 --sjdbGTFfile $CHIMERAGENOME_DIR/$CHIMERAGENOME.ncbiRefSeq.gtf 
 
-
 ## Create Bowtie2 index  -----------------------------------------------------------------------------------------------------------------------------------
 
 echo 

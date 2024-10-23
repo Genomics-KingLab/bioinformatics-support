@@ -1,25 +1,13 @@
-## Single-cell data processing
---------------------------------------------------
-
-## Table of Contents
-- [Single-cell data processing](#single-cell-data-processing)
-- [Table of Contents](#table-of-contents)
-- [Project overview](#project-overview)
-- [Content](#content)
-
---------------------------------------------------
-
-## Project overview 
-
-This folder contains a series of scripts to perform the main single-cell data processing steps. These include:
-1. Bcl2fastq file conversion
-2. Creating a reference genome for cellRanger
-3. Aligning fastq files to the custom reference genome using cellRanger multi
-4. Droplet processing which include sample demultiplexing and removal of low quality cells
-
-
 ## Content
 
-Below I am listing the content of each subfolder contained within this repository 
-1. `scripts/` --> all scripts necessary to process single-cell data
-2. `examples/` --> a series of example files showing how information should be saved in order to run software (mostly cellranger)
+This folder contains a list of simplified scripts to analyse scRNA-seq data from the raw BCL data using CellRanger and Seurat v5 workflows.
+
+Preliminary steps:
+* Create a cellranger reference genome for your assembly of interest
+* Create a GTF file containing the gene information you want for the genome of interest
+
+Analysis:
+1. Convert sequencing data from bcl to fastq
+2. Align fastq reads to reference genome using cellranger multi in case your fastq files contain a combination of Gene Expression, Feature Barcode, and V(D)J libraries generated from a single GEM well, otherwise use cellranger count
+3. Droplet processing of the cellranger output which includes sample (eg, donor) demultiplexing ([HTODemux](https://satijalab.org/seurat/articles/hashing_vignette.html)) and creation of Seurat object containing the count matrices for the different assays
+4. Single-cell data processing using Seurat v5 workflow (check [installation](https://satijalab.org/seurat/articles/install_v5) and [PBMC tutorial](https://satijalab.org/seurat/articles/pbmc3k_tutorial))
